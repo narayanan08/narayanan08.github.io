@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLO Image Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+        }
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            overflow: hidden;
+            font-size: 20px; /* Increase font size */
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s; /* Smooth transition */
+            color: #fff; /* White text color */
+        }
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white on hover */
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s; /* Smooth transition */
+        }
+        .container:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-align: center; /* Center align the heading */
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            display: block;
+            margin: 0 auto;
+            width: 180px; /* Adjust width to match Upload button */
+            border: 2px solid #007bff;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .custom-file-upload:hover {
+            background-color: #0056b3;
+        }
+        input[type="submit"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .messages {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        .messages li {
+            color: #333;
+            background-color: #ffc107;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        #file-name {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+        .loader {
+            border: 6px solid #f3f3f3; /* Light grey */
+            border-top: 6px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" style="color: #fff;">Home</a>
+        <a href="{{ url_for('about') }}" style="color: #fff;">About</a>
+        <a href="#" style="color: #fff;">Contact</a>
+    </div>
+
+    <div class="container">
+        <h1>YOLO Image Detection</h1>
+        <form id="upload-form" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+            <label for="file-upload" class="custom-file-upload">
+                Choose Files
+            </label>
+            <input id="file-upload" type="file" name="files" accept=".png, .jpg, .jpeg" multiple onchange="displayFileNames(this)">
+            <div id="file-names"></div>
+            <input id="submit-btn" type="submit" value="Upload" onclick="showLoader()">
+            <div id="loader" class="loader"></div>
+        </form>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+    
+    <script>
+        function displayFileNames(input) {
+            const files = input.files;
+            let fileNames = 'Selected Files: ';
+            for (let i = 0; i < files.length; i++) {
+                fileNames += files[i].name + (i < files.length - 1 ? ', ' : '');
+            }
+            document.getElementById('file-names').innerText = fileNames;
+        }
+
+        function showLoader() {
+            document.getElementById('submit-btn').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

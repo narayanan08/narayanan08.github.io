@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+            color: #333; /* Text color */
+        }
+
+        .container {
+            position: relative;
+            max-width: 1100px;
+            margin: 80px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+        }
+
+        h1 {
+            color: #FC466B;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-left: 0;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        li img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        p {
+            color: #333;
+        }
+
+        .yolo-image {
+            position: absolute;
+            top: 57%; /* Adjust vertically centered */
+            right: 50px; /* Move more left */
+            transform: translateY(-50%); /* Adjust vertically centered */
+            width: 500px; /* Adjust width */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>About</h1>
+        <p>This application utilizes the YOLOv8 model to predict and classify objects in images uploaded by users. Here's how it works:</p>
+        <ol>
+            <li>Users can upload images containing various objects.</li>
+            <li>The YOLOv8 model processes the uploaded image and detects objects in it.</li>
+        </ol>
+        <p>It then classifies the objects into one of the following categories:</p>
+        <ul>
+            <li>
+                <img src="{{ url_for('static', filename='d6.jpeg') }}" alt="Coin">
+                <span>Coin</span>
+            </li>
+            <li>
+                <img src="{{ url_for('static', filename='d11.jpeg') }}" alt="Bar">
+                <span>Bar</span>
+            </li>
+            <li>
+                <img src="{{ url_for('static', filename='4.jpg') }}" alt="Mangalsutra">
+                <span>Mangalsutra</span>
+            </li>
+            <li>
+                <img src="{{ url_for('static', filename='d15.jpeg') }}" alt="Thali">
+                <span>Thali</span>
+            </li>
+            <li>
+                <img src="{{ url_for('static', filename='d16.jpeg') }}" alt="Others">
+                <span>Others</span>
+            </li>
+        </ul>
+        <p>Once the processing is complete, the application displays the results to the user.</p>
+        <p>Experience the power of object detection with our easy-to-use application!</p>
+
+        <!-- YOLO image -->
+        <img src="{{ url_for('static', filename='c205.jpg') }}" alt="prediction Image" class="yolo-image">
+    </div>
+</body>
+</html>
